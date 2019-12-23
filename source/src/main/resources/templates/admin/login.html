@@ -1,0 +1,120 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admin - Login</title>
+
+  <!-- Custom fonts for this template-->
+  <link th:href="@{/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template-->
+  <link th:href="@{/startbootstrap-sb-admin-gh-pages/css/sb-admin.css}" rel="stylesheet">
+    <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <script type="text/javascript">
+			$(document).ready(function(){
+			    $("#btnLogin").click(function(){
+			    	if($("#chkRemember").is(":checked")){
+			    		setCookie("email", $("#inputEmail").val(), 10);
+			    		setCookie("password", $("#inputPassword").val(), 10);
+			    		
+			    	}else{
+			    		//document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
+			    		//document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
+			    	}
+ 			       $("#frmMain").submit(); // Submit the form
+			    });
+			    
+			});
+			function setCookie(cname, cvalue, exdays) {
+				  var d = new Date();
+				  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+				  var expires = "expires="+ d.toUTCString();
+				  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			
+			}
+			
+			function getCookie(cname) {
+				  var name = cname + "=";
+				  var decodedCookie = decodeURIComponent(document.cookie);
+				  var ca = decodedCookie.split(';');
+				  for(var i = 0; i <ca.length; i++) {
+				    var c = ca[i];
+				    while (c.charAt(0) == ' ') {
+				      c = c.substring(1);
+				    }
+				    if (c.indexOf(name) == 0) {
+				      return c.substring(name.length, c.length);
+				    }
+				  }
+				  return "";
+			}
+			
+			function checkCookie() {
+				  var user = getCookie("username");
+				  if (user != "") {
+				    alert("Welcome again " + user);
+				  } else {
+				    user = prompt("Please enter your name:", "");
+				    if (user != "" && user != null) {
+				      setCookie("username", user, 365);
+				    }
+				  }
+			}
+			
+ </script>
+</head>
+
+<body class="bg-dark">
+
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form action="/check-login" method="post" id="frmMain">
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+              <label for="inputEmail">Email address</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+              <label for="inputPassword">Password</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me" name="remember-me" id="chkRemember">
+                Remember Password
+              </label>
+            </div>
+          </div>
+          <button id="btnLogin" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="register.html">Register an Account</a>
+          <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

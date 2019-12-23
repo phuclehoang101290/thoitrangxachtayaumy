@@ -1,0 +1,285 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quảng cáo Kiên Giang</title>
+  <link rel="shortcut icon" th:href="@{/img/icon_32x32.png}" type="image/png">
+
+  <link rel="stylesheet" th:href="@{/sensive/vendors/bootstrap/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/sensive/vendors/fontawesome/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/sensive/vendors/themify-icons/themify-icons.css}">
+  <link rel="stylesheet" th:href="@{/sensive/vendors/linericon/style.css}">
+  <link rel="stylesheet" th:href="@{/sensive/vendors/owl-carousel/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/sensive/vendors/owl-carousel/owl.carousel.min.css}">
+	
+  <link rel="stylesheet" th:href="@{/sensive/css/style.css}">
+  <script th:src="@{/js/jquery.min.js}"></script>
+  <script>
+			$(document).ready(function(){
+			    $("#btnRegister").click(function(){
+			    	//var post = $.post("/register-email/" + $("#inlineFormInputGroup").val());
+			    	$.post("/register-email/" + $("#inlineFormInputGroup").val(), function() {
+			    		  //alert( "success" );
+			    		})
+			    		  .done(function() {
+			    			  $("#alertEmail").css("visibility","visible");
+			    		  })
+			    		  .fail(function() {
+			    			  $("#alertEmail").css("visibility","hidden");
+			    		  })
+			    		  .always(function() {
+			    		    //alert( "finished" );
+			    	});			    	
+			    });
+			    
+			    $("#back").on("click", function(){
+			    	var page = parseInt($("#currentPage").val()) - 1;
+			    	
+			    	if(page == 0){
+			    		page = 1;
+			    	}
+			    	$("#currentPage").val(page);
+			    	window.location.href = "/page/" + page;
+			    });
+			    $("#next").on("click",function(){
+			    	var page = parseInt($("#currentPage").val()) + 1;
+		;
+			    	if(page > $("#maxPage").val()){
+			    		page = $("#maxPage").val();
+			    	}
+			    	$("#currentPage").val(page);
+			    	
+			    	window.location.href = "/page/" + page;
+			    			    	
+			    });
+			    
+			    
+			});
+	</script>
+</head>
+<body>
+  <!--================Header Menu Area =================-->
+  <header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container box_1620">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <a class="navbar-brand logo_h" href="index.html"><img th:src="@{/img/icon100x124.png}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav justify-content-center">
+              <li class="nav-item active"><a class="nav-link" href="/">Trang chủ</a></li> 
+              <li class="nav-item"><a class="nav-link" href="/advisory">Đăng ký tư vấn</a></li> 
+              <li class="nav-item"><a class="nav-link" href="#">Câu hỏi thường gặp</a></li> 
+              <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-social">
+              <li><a href="https://www.facebook.com/LEDKIENGIANG/"><i class="ti-facebook"></i></a></li>
+<!--               <li><a href="#"><i class="ti-twitter-alt"></i></a></li> -->
+<!--               <li><a href="#"><i class="ti-instagram"></i></a></li> -->
+<!--               <li><a href="#"><i class="ti-skype"></i></a></li> -->
+            </ul>
+          </div> 
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!--================Header Menu Area =================-->
+  
+  <main class="site-main">
+    <!--================Hero Banner start =================-->  
+    <section class="mb-30px">
+      <div class="container">
+        <div class="hero-banner hero-banner--sm">
+          <div class="hero-banner__content">
+<!--             <h3>Tours & Travels</h3> -->
+<!--             <h1>Amazing Places on earth</h1> -->
+<!--             <h4>December 12, 2018</h4> -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================Hero Banner end =================-->  
+
+    <!--================ Blog slider start =================-->  
+    <section>
+      <div class="container">
+        <div class="owl-carousel owl-theme blog-slider" >
+          <div class="card blog__slide text-center" th:each="news : ${newses}">
+            <div class="blog__slide__img">
+              <img class="card-img rounded-0" th:src="${news.urlImage}" alt="">
+            </div>
+            <div class="blog__slide__content">
+              <a class="blog__slide__label" th:href="@{'/news-detail/' + ${news.id.toHexString()}}">Xem</a>
+              <h3><a th:href="@{'/news-detail/' + ${news.id.toHexString()}}" th:text="${news.title}">New york fashion week's continued the evolution</a></h3>
+              <p th:text="${#dates.format(news.createDate, 'dd-MM-yyyy')}">2 days ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================ Blog slider end =================-->  
+
+    <!--================ Start Blog Post Area =================-->
+    <section class="blog-post-area section-margin mt-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="single-recent-blog-post" th:each="news : ${newses}">
+              <div class="thumb">
+                <img class="img-fluid" th:src="${news.urlImage}" alt="">
+                <ul class="thumb-info">
+                  <li><a href="#"><i class="ti-user"></i>Admin</a></li>
+                  <li><a th:href="@{'/news-detail/' + ${news.id.toHexString()}}" th:text="${#dates.format(news.createDate, 'dd-MM-yyyy')}"><i class="ti-notepad"></i>January 12,2019</a></li>
+                </ul>
+              </div>
+              <div class="details mt-20">
+                <a href="blog-single.html">
+                  <h3 th:text="${news.title}">Woman claims husband wants to name baby girl
+                    after his ex-lover sparking.</h3>
+                </a>
+<!--                 <p class="tag-list-inline">Tag: <a href="#">travel</a>, <a href="#">life style</a>, <a href="#">technology</a>, <a href="#">fashion</a></p> -->
+                <p th:text="${news.summary}">Over yielding doesn't so moved green saw meat hath fish he him from given yielding lesser cattle were fruitful lights. Given let have, lesser their made him above gathered dominion sixth. Creeping deep said can't called second. Air created seed heaven sixth created living</p>
+                <a class="button" th:href="@{'/news-detail/' + ${news.id.toHexString()}}">Xem thêm <i class="ti-arrow-right"></i></a>
+              </div>
+            </div>          
+            <div class="row">
+              <div class="col-lg-12">
+              	 <input type="hidden" id="currentPage" th:value="${selectPage}"/>
+              	 <input type="hidden" id="maxPage" th:value="${lstPageNumber.size()}"/>
+                  <nav class="blog-pagination justify-content-center d-flex">
+                      <ul class="pagination">
+                          <li class="page-item">
+                              <a id="back" class="page-link" aria-label="Previous">
+                                  <span aria-hidden="true">
+                                      <i class="ti-angle-left"></i>
+                                  </span>
+                              </a>
+                          </li>
+						  <li class="page-item" th:each="index : ${lstPageNumber}" th:classappend="${selectPage == index} ? active : ''">
+                          	<a class="page-link" th:href="@{'/page/' + ${index}}" th:text="${index}">1</a>
+                          </li>
+                          <li class="page-item">
+                              <a id="next" class="page-link backnext" aria-label="Next">
+                                  <span aria-hidden="true">
+                                      <i class="ti-angle-right"></i>
+                                  </span>
+                              </a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Blog Post Siddebar -->
+          <div class="col-lg-4 sidebar-widgets">
+              <div class="widget-wrap">
+                <div class="single-sidebar-widget newsletter-widget">
+                  <h4 class="single-sidebar-widget__title">Nhận thông tin từ chúng tôi</h4>
+                  <div class="form-group mt-30">
+                    <div class="col-autos">
+                 
+                                     
+                      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Enter email'">
+                        <div id="alertEmail" class="alert alert-success" style="visibility: hidden;">
+    						Đăng ký thành công.
+  						</div>
+                    
+                    </div>
+                  </div>
+                  <button id="btnRegister" class="bbtns d-block mt-20 w-100">Đăng ký</button>
+                </div>
+				
+				<div class="single-sidebar-widget post-category-widget">
+                  <h4 class="single-sidebar-widget__title">Tỷ giá ngoại tệ</h4>
+                  <iframe id="fr11" style="border: none;" src="//tygia.com/api.php?column=1&amp;title=0&amp;chart=0&amp;gold=0&amp;rate=1&amp;ngoaite=usd,jpy,chf,eur,gbp,hkd&amp;expand=0&amp;color=eeffee&amp;titlecolor=111111&amp;bgcolor=&amp;upcolor=00aa00&amp;downcolor=bb0000&amp;textcolor=333333&amp;nganhang=VIETCOM&amp;fontsize=80&amp;ngay=&amp;column=2" width="300" height="200"></iframe>
+                </div>
+  
+				
+                <div class="single-sidebar-widget popular-post-widget">
+                  <h4 class="single-sidebar-widget__title">Dự án nổi bật</h4>
+                  <div class="popular-post-list">
+                    <div class="single-post-list" th:each="popular : ${populars}">
+                      <div class="thumb">
+                        <img class="card-img rounded-0" th:src="${popular.urlImage}" width="290" height="133.39" alt="">
+                        <ul class="thumb-info">
+                          <li><a th:href="@{'/news-detail/' + ${popular.id.toHexString()}}">Admin</a></li>
+                          <li><a th:href="@{'/news-detail/' + ${popular.id.toHexString()}}" th:text="${#dates.format(popular.createDate, 'dd-MM-yyyy')}">Dec 15</a></li>
+                        </ul>
+                      </div>
+                      <div class="details mt-20">
+                        <a th:href="@{'/news-detail/' + ${popular.id.toHexString()}}">
+                          <h6 th:text="${popular.title}">Accused of assaulting flight attendant miktake alaways</h6>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                </div>
+              </div>
+            </div>
+          <!-- End Blog Post Siddebar -->
+        </div>
+    </section>
+    <!--================ End Blog Post Area =================-->
+  </main>
+
+  <!--================ Start Footer Area =================-->
+  <footer class="footer-area section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="single-footer-widget">
+            <h6>Địa chỉ liên hệ:</h6>
+            <p>
+              1039, Lâm Quang Ky, Phường An Hòa, Thành Phố Rạch Giá, Tỉnh Kiên Giang
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="single-footer-widget">
+            <h6>Theo dõi chúng tôi</h6>
+            <p>Kết nối qua mạng xã hội</p>
+            <div class="footer-social d-flex align-items-center">
+              <a href="https://www.facebook.com/LEDKIENGIANG/">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+<!--               <a href="#"> -->
+<!--                 <i class="fab fa-twitter"></i> -->
+<!--               </a> -->
+<!--               <a href="#"> -->
+<!--                 <i class="fab fa-dribbble"></i> -->
+<!--               </a> -->
+<!--               <a href="#"> -->
+<!--                 <i class="fab fa-behance"></i> -->
+<!--               </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+<!--       <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap"> -->
+<!--         <p class="footer-text m-0">Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+<!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+<!-- <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. </p> -->
+<!--       </div> -->
+    </div>
+  </footer>
+  <!--================ End Footer Area =================-->
+
+  <script th:src="@{/sensive/vendors/jquery/jquery-3.2.1.min.js}"></script>
+  <script th:src="@{/sensive/vendors/bootstrap/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/sensive/vendors/owl-carousel/owl.carousel.min.js}"></script>
+  <script th:src="@{/sensive/js/jquery.ajaxchimp.min.js}"></script>
+  <script th:src="@{/sensive/js/mail-script.js}"></script>
+  <script th:src="@{/sensive/js/main.js}"></script>
+</body>
+</html>

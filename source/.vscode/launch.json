@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SpringBootMongodbApplication",
+            "request": "launch",
+            "mainClass": "guru.springframework.SpringBootMongodbApplication",
+            "projectName": "thoitrangxachtayaumy"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SpringBootMongodbApplication",
+            "request": "launch",
+            "mainClass": "guru.springframework.SpringBootMongodbApplication",
+            "projectName": "vetayphuong"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SpringBootMongodbApplication",
+            "request": "launch",
+            "mainClass": "guru.springframework.SpringBootMongodbApplication",
+            "projectName": "spring-boot-mongodb"
+        }
+    ]
+}
